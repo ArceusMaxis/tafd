@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://l6k1b1hd2sbj"]
+
+[ext_resource type="Texture2D" uid="uid://clsr5ipor3mxi" path="res://art/Floor.png" id="1_4hlfa"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qnmvm"]
+radius = 50.0
+height = 400.0
+
+[node name="Floor" type="StaticBody2D"]
+collision_layer = 15
+
+[node name="Floor" type="Sprite2D" parent="."]
+texture = ExtResource("1_4hlfa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qnmvm")

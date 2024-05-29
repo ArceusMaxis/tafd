@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://bprml0nd0pktq"]
+
+[ext_resource type="Texture2D" uid="uid://b3imbr42ujr66" path="res://art/Head.png" id="1_3qnfj"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_4nxn0"]
+[ext_resource type="Texture2D" uid="uid://ble6y8prosbs7" path="res://art/Left Arm.png" id="2_dikml"]
+[ext_resource type="Texture2D" uid="uid://bpejhirn7civa" path="res://art/Right Arm.png" id="3_r114f"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_4nxn0")
+playercolor = Color(1, 0.592157, 0.32549, 1)
+
+[node name="Head" type="RigidBody2D" parent="."]
+
+[node name="HeadTexture" type="Sprite2D" parent="Head"]
+unique_name_in_owner = true
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_3qnfj")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Head"]
+scale = Vector2(0.24858, 0.24858)
+polygon = PackedVector2Array(0, -88, -40, -80, -72, -48, -96, 0, -96, 48, -80, 72, -40, 88, 40, 88, 80, 72, 96, 48, 96, 0, 72, -48, 40, -80)
+
+[node name="Camera2D" type="Camera2D" parent="Head"]
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 1080
+
+[node name="LeftArm" type="RigidBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="LeftArmTexture" type="Sprite2D" parent="LeftArm"]
+unique_name_in_owner = true
+position = Vector2(-19, 55)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_dikml")
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="LeftArm"]
+position = Vector2(-19, 55)
+scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(12, -136, -1, -88, -9, -24, -9, 40, -8, 96, -16, 104, -24, 120, -16, 136, 0, 144, 16, 136, 24, 120, 16, 104, 8, 96, 7.62939e-06, 40, -1, -24, 7, -88, 20, -132)
+
+[node name="RightArm" type="RigidBody2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="RightArmTexture" type="Sprite2D" parent="RightArm"]
+unique_name_in_owner = true
+position = Vector2(19, 55)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_r114f")
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+position = Vector2(19, 55)
+rotation = -3.14159
+scale = Vector2(0.25, -0.25)
+polygon = PackedVector2Array(12, -136, -1, -88, -9, -24, -9, 40, -8, 96, -16, 104, -24, 120, -16, 136, 0, 144, 16, 136, 24, 120, 16, 104, 8, 96, -1, 40, -1, -24, 7, -88, 20, -132)
+
+[node name="joints" type="Node2D" parent="."]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="joints"]
+position = Vector2(-15, 21)
+node_a = NodePath("../../Head")
+node_b = NodePath("../../LeftArm")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="joints"]
+position = Vector2(15, 21)
+node_a = NodePath("../../Head")
+node_b = NodePath("../../RightArm")
+
+[node name="JumpTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

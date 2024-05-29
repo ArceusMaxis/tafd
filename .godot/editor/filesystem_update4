@@ -1,10 +1,6 @@
-res://scripts/Background.gd
 res://scenes/protolevel.tscn
+res://scripts/Background.gd
 res://scenes/floor.tscn
 res://scenes/Player.tscn
-res://scripts/Player.gd
-res://scripts/manager.gd
-res://scripts/multiplayer_manager.gd
 res://scenes/MultiplayerScreen.tscn
-res://scripts/multiplayer_controller.gd
-res://scripts/multiplayer_input.gd
+res://scripts/Player.gd

@@ -21,6 +21,7 @@ scale = Vector2(0.24858, 0.24858)
 polygon = PackedVector2Array(0, -88, -40, -80, -72, -48, -96, 0, -96, 48, -80, 72, -40, 88, 40, 88, 80, 72, 96, 48, 96, 0, 72, -48, 40, -80)
 
 [node name="Camera2D" type="Camera2D" parent="Head"]
+unique_name_in_owner = true
 limit_left = 0
 limit_top = 0
 limit_right = 1920
@@ -51,7 +52,7 @@ position = Vector2(19, 55)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_r114f")
 
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="RightArm"]
 position = Vector2(19, 55)
 rotation = -3.14159
 scale = Vector2(0.25, -0.25)
@@ -70,5 +71,6 @@ node_a = NodePath("../../Head")
 node_b = NodePath("../../RightArm")
 
 [node name="JumpTimer" type="Timer" parent="."]
+wait_time = 0.001
 
 [connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]

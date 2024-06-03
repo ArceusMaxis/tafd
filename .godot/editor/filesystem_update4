@@ -1,5 +1,2 @@
-res://scenes/protolevel.tscn
-res://scripts/Background.gd
-res://scenes/floor.tscn
 res://scenes/Player.tscn
-res://scripts/protolevel.gd
+res://scripts/Background.gd

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var force = 100
+@export var force = 40
 @export var jumpforce = 800
 @export_color_no_alpha var playercolor
 var can_jump = true
@@ -10,15 +10,11 @@ var can_jump = true
 		%InputSynchronizer.set_multiplayer_authority(id)
 
 func _ready():
-	if multiplayer.get_unique_id() == player_id:
-		%Camera2D.make_current()
-	else:
-		%Camera2D.enabled = false
 	%HeadTexture.modulate = playercolor
 	%LeftArmTexture.modulate = playercolor
 	%RightArmTexture.modulate = playercolor
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_pressed("left"):
 		$LeftArm.apply_central_impulse(Vector2(-force,0))
 	if Input.is_action_pressed("right"):
@@ -31,3 +27,6 @@ func _physics_process(delta):
 
 func _on_jump_timer_timeout():
 	can_jump = true
+
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())

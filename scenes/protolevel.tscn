@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://dwpyvrstai13"]
+[gd_scene load_steps=14 format=3 uid="uid://dwpyvrstai13"]
 
+[ext_resource type="Script" path="res://scripts/protolevel.gd" id="1_2nj8h"]
 [ext_resource type="Texture2D" uid="uid://bbpbgyu4qlqm2" path="res://wallpapers/Background-Striped-Blue.png" id="1_qck8o"]
 [ext_resource type="Script" path="res://scripts/Background.gd" id="2_mh73m"]
 [ext_resource type="Texture2D" uid="uid://dwdxda21cu33n" path="res://wallpapers/Background-Striped-Green.png" id="3_f4d6i"]
@@ -22,6 +23,8 @@ size = Vector2(32, 1080)
 size = Vector2(1984, 32)
 
 [node name="PrototypeLevel" type="Node2D"]
+script = ExtResource("1_2nj8h")
+player_scene = ExtResource("8_x5cvf")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
@@ -67,7 +70,61 @@ wait_time = 60.0
 autostart = true
 script = ExtResource("7_2m7jt")
 
-[node name="Player" parent="." instance=ExtResource("8_x5cvf")]
-position = Vector2(901.793, 342.915)
+[node name="MultiplayerHUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
 
+[node name="Panel" type="Panel" parent="MultiplayerHUD"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -156.0
+offset_right = 192.0
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MultiplayerHUD/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -220.0
+offset_right = 160.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="HostButton" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "HOST GAME"
+
+[node name="JoinButton" type="Button" parent="MultiplayerHUD/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "JOIN GAME"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/Player.tscn")
+spawn_path = NodePath("..")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+zoom = Vector2(0.5, 0.5)
+
+[connection signal="body_entered" from="DeathArea" to="." method="_on_death_area_body_entered"]
 [connection signal="timeout" from="RoundTimer" to="RoundTimer" method="_on_timeout"]
+[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="MultiplayerHUD/Panel/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
